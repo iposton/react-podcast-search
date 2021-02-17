@@ -16,7 +16,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Steps so far
 <ol>
-  <li>Create a new next server side rendered project with create-next-app.<li>
+  <li>Create a new next server side rendered project with create-next-app.</li>
   <li>Creat an Alan Studio account at alan.app.</li>
   <li>Create a new project and get alan ai api key.</li>
   <li>NPM install @alan/ai classnames and words-to-numbers</li>

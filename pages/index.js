@@ -1,11 +1,13 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 const fetch = require('node-fetch')
 const crypto = require('crypto')
 const alanKey = 'ALAN_KEY';
 
 export default function Home() {
+  const [items, setItems] = useState([])
+ 
   useEffect(() => {
     const alanBtn = require('@alan-ai/alan-sdk-web');
     alanBtn({
@@ -41,7 +43,8 @@ export default function Home() {
         ).then(
           data => {
             console.log('success got data:')
-            console.log(data)
+            console.log(data['feeds'])
+            setItems(data['feeds'])
           },
           err => {
             console.log('got error:')
@@ -70,10 +73,16 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <a href="#" className={styles.card}>
-            <h3>PodcastTitle</h3>
-            <p>podcast description...</p>
-          </a>
+          {!items.length && 'No search results: try again'}
+          {items.map((item) => (
+            <a href={item.link} key={item.id} className={styles.card} title={item.title} style={{
+              width: 128,
+              height: 360,
+              backgroundImage: `url(${(item.image) || "/podcast-icon.png"})`
+            }}> 
+            </a>
+          ))}
+
         </div>
       </main>
 
