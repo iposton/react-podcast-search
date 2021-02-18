@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "postbuild": "next-on-netlify",
+    "export": "next export"
   },
   "dependencies": {
     "@alan-ai/alan-sdk-web": "^1.8.18",
