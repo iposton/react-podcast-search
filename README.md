@@ -24,5 +24,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   <li>Create account at podcast.org generate api key and secret.</li>
   <li>In alan ai account create a command that sends a request to search podcast.org</li>
   <li>List podcast data in ui.</li>
+  <li>Deploy to Netlify.</li>
 </ol>
 

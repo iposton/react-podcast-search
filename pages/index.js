@@ -3,9 +3,9 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 const fetch = require('node-fetch')
 const crypto = require('crypto')
-const alanKey = 'ALAN_KEY';
+const alanKey = process.env.NEXT_PUBLIC_KEY;
 
-export default function Home() {
+export default function Home(props) {
   const [items, setItems] = useState([])
  
   useEffect(() => {
