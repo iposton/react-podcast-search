@@ -9,6 +9,7 @@ export default function Home(props) {
   const [items, setItems] = useState([])
  
   useEffect(() => {
+    console.log(alanKey)
     const alanBtn = require('@alan-ai/alan-sdk-web');
     alanBtn({
       key: alanKey,
