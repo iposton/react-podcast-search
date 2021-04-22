@@ -5,7 +5,7 @@ const fetch = require('node-fetch')
 const crypto = require('crypto')
 const alanKey = process.env.NEXT_PUBLIC_KEY;
 
-export default function Home(props) {
+export default function Home() {
   const [items, setItems] = useState([])
  
   useEffect(() => {
@@ -82,7 +82,6 @@ export default function Home(props) {
             }}> 
             </a>
           ))}
-
         </div>
       </main>
 
