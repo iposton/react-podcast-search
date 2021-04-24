@@ -1,4 +1,4 @@
-# React Next.js SSR and Alan AI | Podcast search app [Demo](https://react-podcast-search.netlify.app/)
+# React Next.js SSR and Alan AI | Podcast search Netlify app [Demo](https://react-podcast-search.netlify.app/)
 
 This is a single page server side rendered app which uses the [Alan AI](https://alan.app) to enable voice commands to search [podcastsindex.org](https://podcastindex.org) for relative podcasts.
 
@@ -39,7 +39,7 @@ I am using The Alan Studio API to implement voice commands in this app. I signed
 Sign into your Alan Studio account and navigate to the projects home page. To find the projects page click on the Alan Studio logo on the left side of navigation bar at the top of the page or navigate to https://studio.alan.app/projects. Create new project by clicking on the Create Voice Assistant button located on the right side of the nav bar. Click on the Empty project selection and then you will be prompted to name the project. Once you create the empty project you get redirected into the project dashboard where you can find the project's api key. On the right side the of the nav bar click the the `</> Integrations` button and you'll find the `Alan SDK Key` (api key) at the top heading of the page. Now you will copy the key and paste it into the the next.js app. Go to `project-name/pages/index.js` and paste the key at the top of the file `const alanKey = 'your-key-here'`.
 
 ### Set up voice commands.
-This app requires some third party packages for the AI voice commands to work properly. In the terminal `cd` into the project then type `npm i @alan/ai classnames and words-to-numbers`. The `@alan-ai/alan-sdk-web` package is going to allow a microphone button icon to appear in the bottom right of the ui. The alan `apiKey` will initialize the microphone button. I imported `useEffect` from react to make a request to the alan api. 
+This app requires some third party packages for the AI voice commands to work properly. In the terminal `cd` into the project then type `npm i @alan/ai classnames words-to-numbers --save`. The `@alan-ai/alan-sdk-web` package is going to allow a microphone button icon to appear in the bottom right of the ui. The alan `apiKey` will initialize the microphone button. I imported `useEffect` from react to make a request to the alan api. 
 
  Type `npm run dev` to serve the app, go to [http://localhost:3000](http://localhost:3000), and the microphone icon will appear at the bottom right of the page. The `create-next-app` team is kind enough to provide a nice home page with styles I just had to make a few adjustments to make my homepage for this app.
 
@@ -47,11 +47,11 @@ This app requires some third party packages for the AI voice commands to work pr
 
   ![deploy site netlify](public/alan-project.png)
 
-  Update the `index.js` file with the code below to establish a basic home page.
+  Update the `pages/index.js` file with the code below to establish a basic home page.
 
 ```js
 
-//index.js
+//pages/index.js
 
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
@@ -363,8 +363,9 @@ export default function Home() {
 Make a part 2 tutorial learn to build a media player for podcast, add more voice commands to select search options by number and add manual search input.
 
 
-```json
+```js
 //podcast payload object example
+[
   {
     artwork: "https://media.npr.org/images/podcasts/primary/icon_510051-b7c03cba2cc7e21c27c4af518da4067061ac4164.jpg?s=1400",
     author: "NPR",
@@ -393,6 +394,7 @@ Make a part 2 tutorial learn to build a media player for podcast, add more voice
     type: 0,
     url: "https://feeds.npr.org/510051/podcast.xml"
   }
+]
 
 ```
 
