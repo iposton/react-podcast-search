@@ -1,18 +1,17 @@
-# Podcast search app SSR Next.js React and Alan AI
+# React Next.js SSR and Alan AI | Podcast search app [Demo](https://react-podcast-search.netlify.app/)
 
-This is a single page server side rendered app which uses the [Alan AI](https://alan.app) to get enable voice commands to search [podcastsindex.org](https://podcastindex.org) for relative podcasts.
+This is a single page server side rendered app which uses the [Alan AI](https://alan.app) to enable voice commands to search [podcastsindex.org](https://podcastindex.org) for relative podcasts.
 
 ### Description
-This AI ssr [app](https://react-podcast-search.netlify.app/) was created with react framework [Next.js](https://nextjs.org/) bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). This AI app is hosted for free on Netlify (cloud application platform). The podcast data is sourced through the [podcastsindex.org](https://podcastindex.org).
+This AI ssr [app](https://react-podcast-search.netlify.app/) was created with react framework [Next.js](https://nextjs.org/) bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). This AI app is hosted for free on [Netlify](https://www.netlify.com/) (cloud computing platform). The podcast data is sourced through [podcastsindex.org](https://podcastindex.org).
  
 ### You can learn this
-* Create a new next server side rendered project with create-next-app.
-* Create an Alan Studio account at alan.app. 
-* Create a new project and get alan ai api key.
-* Initialize the alan button to except voice commands. 
+* Create a server side rendered project with create-next-app.
+* Create an Alan Studio account and make a new project.
+* Initialize the Alan button to except voice commands. 
 * Create account at podcastindex.org generate api key and secret.
 * In alan ai account create a command that sends a request to search podcastindex.org.
-* List podcast data in ui.
+* List and style podcast data in ui.
 * Deploy to Netlify.
 
 ### Software used for this application
@@ -28,24 +27,31 @@ This AI ssr [app](https://react-podcast-search.netlify.app/) was created with re
 * react 17.0.1
 * react-dom 17.0.1 
 * words-to-numbers 1.5.1
+* Netlify
 
 ### Initialize an app with create-next-app
-Open your terminal `cd desktop` and type the command `npx create-next-app`. Then you will be prompted to name your project. The project folder will be on your desktop, open the project with Visual Studio Code (free code editor). 
+Open your terminal `cd desktop` and type the command `npx create-next-app`. Then you will be prompted to give a name to your project. The project folder will be on your desktop, open the project with Visual Studio Code (free code editor). I upgraded the global version of `node.js` to 14.4 for this app to work properly.
 
 ### Sign up for an account at Alan Studio
 I am using The Alan Studio API to implement voice commands in this app. I signed up at [https://studio.alan.app/register](https://studio.alan.app/register) and clicked sign up with GitHub. You can also create an account with your email. You will get 50 free interactions (api requests) after the account is created.
 
 ### Create a new project and get alan ai api key.
-Sign into your Alan Studio account and navigate to the projects home page. To find the projects page click on the Alan Studio logo on the left side of navigation bar at the top of the page or navigate to https://studio.alan.app/projects. Create new project by clicking on the Create Voice Assistant button located on the right side of the nav bar. Click on the Empty project selection and then you will be prompted to name the project. Once you create the empty project you get redirected into the project dashboard where you can find the project's api key. On the right side the of the nav bar click the the </> Integrations button and you'll find the Alan SDK Key (api key) at the top heading of the page. Now you will copy the key and paste it into the your next.js app. Go to `project-name/pages/index.js` and paste the key at the top of the file `const alanKey = 'your-key-here';`.
+Sign into your Alan Studio account and navigate to the projects home page. To find the projects page click on the Alan Studio logo on the left side of navigation bar at the top of the page or navigate to https://studio.alan.app/projects. Create new project by clicking on the Create Voice Assistant button located on the right side of the nav bar. Click on the Empty project selection and then you will be prompted to name the project. Once you create the empty project you get redirected into the project dashboard where you can find the project's api key. On the right side the of the nav bar click the the `</> Integrations` button and you'll find the `Alan SDK Key` (api key) at the top heading of the page. Now you will copy the key and paste it into the the next.js app. Go to `project-name/pages/index.js` and paste the key at the top of the file `const alanKey = 'your-key-here'`.
 
 ### Set up voice commands.
-This app requires some third party packages for the AI voice commands to work properly. In the terminal `cd` into the project then type `npm i @alan/ai classnames and words-to-numbers`. The `@alan-ai/alan-sdk-web` package is going allow me to add a microphone button icon to the app. We need to use the alan `apiKey` to initialize the button. We need import useEffect from react to make a request to the alan api. 
+This app requires some third party packages for the AI voice commands to work properly. In the terminal `cd` into the project then type `npm i @alan/ai classnames and words-to-numbers`. The `@alan-ai/alan-sdk-web` package is going to allow a microphone button icon to appear in the bottom right of the ui. The alan `apiKey` will initialize the microphone button. I imported `useEffect` from react to make a request to the alan api. 
 
  Type `npm run dev` to serve the app, go to [http://localhost:3000](http://localhost:3000), and the microphone icon will appear at the bottom right of the page. The `create-next-app` team is kind enough to provide a nice home page with styles I just had to make a few adjustments to make my homepage for this app.
 
  We can test our voice command by going to the Alan studio dashboard project page and add this line `intent('What is this?', reply('This is a react AI project.'));`. Click the microphone icon button and say "What is this?" and you will hear a voice say "This is a react AI project.".
 
+  ![deploy site netlify](public/alan-project.png)
+
+  Update the `index.js` file with the code below to establish a basic home page.
+
 ```js
+
+//index.js
 
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
@@ -122,7 +128,7 @@ intent('Give me podcasts from $(source* (.+))', (p) => {
 
  ```
 
- The AI will detect the `source` which is the word said after "from" in your voice request. Then concatenate the `source` to the api endpoint. Then using `p.play({url: PODCAST_API_URL, key: API_KEY, secret: SECRET})` I am passing everything I need to authenticate my request in the app. 
+ The AI will detect the word said after "from" in your voice request. Then I concatenate that word to the api endpoint. Then using `p.play({url: PODCAST_API_URL, key: API_KEY, secret: SECRET})` I am passing everything I need to authenticate my request in the app. 
  
  ### List podcast data in ui.
  Using `node-fetch` I build a request in my app. When the payload from the api is sent back in a `response` I will use `useState` from react to set the items in an array to be repeated and rendered in the ui.
@@ -228,7 +234,7 @@ export default function Home() {
 
  ```
 
- When I created this `next.js` app it came with some nice css styles that I re-used for this project, I simply made a few tweaks to make look good for this project.
+ When I created this `next.js` app it came with some nice css styles that I re-used for this project, I simply made a few tweaks to make it look well enough for this project.
 
  ```css
 
@@ -334,11 +340,11 @@ export default function Home() {
  ### Deploy to Netlify.
  To follow along with this part of the tutorial it requires a github account. The app needs to be pushed to a new repository but before committing the app make sure to remove the `alan api key` from index.js. That key will be added securely to Netlify config settings after we deploy the app. Don't expose private keys to github.
 
- I decided to deploy this app to Netlify because it's free and I've been wanting to use this service for a while now since I heard so much good things about them.
+ I decided to deploy this app to Netlify because it's free and I've been wanting to use this service for a while considering that I've heard so much good things about the platform.
 
- Go to [https://www.netlify.com/](https://www.netlify.com/) and click sign up. From the sign up page use your github account to sign up. We will deploy this app straight from the github repo so you will need to authorize netlify to have read access of the repository that you pushed your code to.
+ After pushing this app to github I go to [https://www.netlify.com/](https://www.netlify.com/) and click sign up. From the sign up page  I use my github account to sign up. I will deploy this app straight from the github repo so I will need to authorize Netlify to have read access of the repository that I pushed the code to.
 
- Before we deploy this app we need to add this build command `"export": "next export"` to the `package.json` file on line 9 inside the `scripts:` attribute. And add a `netlify.toml` file to the root of the app with these two lines added to it `command = "npm run build && npm run export"` `publish = "out"`. 
+ Before I deploy this app I need to add this build command `"export": "next export"` to the `package.json` file on line 9 inside the `scripts:` attribute. And I add a `netlify.toml` file to the root of the app with these two lines added to it `command = "npm run build && npm run export"` `publish = "out"`. 
 
  I had to add the alan ai `apiKey` to my netlify account since I did not push the key to my public repo. First on line 6 of `index.js` add this line `const alanKey = process.env.NEXT_PUBLIC_KEY;`. 
 
@@ -346,14 +352,48 @@ export default function Home() {
 
  ![deploy site netlify](public/deploy-netlify.png)
 
-  After deploying to Netlify from the top of page navigation menu click Site Overview then just below click the Site settings button. On the left side there is a vertical menu click Build & deploy option then click Environment option from the same menu and click edit variables button and add key: `NEXT_PUBLIC_KEY` value: `apiKey` and click Save. Go to the site url and you're all good to test your app.
+  After deploying to Netlify from the top of page navigation menu click Site Overview then just below click the Site settings button. On the left side there is a vertical menu click Build & deploy option then click Environment option from the same menu and click edit variables button and add key: `NEXT_PUBLIC_KEY` value: `your alan apiKey` and click Save. Go to the site url and you're all good to test your app. Each time there is a push of changes to the main branch of your repository Netlify will deploy automattically.
 
   ### References
   1. [https://javascript.plainenglish.io/getting-started-with-react-server-side-rendering-using-next-js-ba9ed691fa85](https://javascript.plainenglish.io/getting-started-with-react-server-side-rendering-using-next-js-ba9ed691fa85)
   2. [Build and Deploy a Voice Assistant App | Alan AI, React JS](https://www.youtube.com/watch?v=rqw3OftE5sA) 
 
 
+### New Features
+Make a part 2 tutorial learn to build a media player for podcast, add more voice commands to select search options by number and add manual search input.
 
 
+```json
+//podcast payload object example
+  {
+    artwork: "https://media.npr.org/images/podcasts/primary/icon_510051-b7c03cba2cc7e21c27c4af518da4067061ac4164.jpg?s=1400",
+    author: "NPR",
+    categories: {1: "Arts"},
+    contentType: "text/xml;charset=UTF-8",
+    crawlErrors: 0,
+    dead: 0,
+    description: "NPR and WBUR's live midday news program",
+    generator: "NPR API RSS Generator 0.94",
+    id: 1055863,
+    image: "https://media.npr.org/images/podcasts/primary/icon_510051-b7c03cba2cc7e21c27c4af518da4067061ac4164.jpg?s=1400",
+    imageUrlHash: 1075114238,
+    itunesId: 426698661,
+    language: "en-us",
+    lastCrawlTime: 1619280841,
+    lastGoodHttpStatusTime: 1619280841,
+    lastHttpStatus: 200,
+    lastParseTime: 1619219028,
+    lastUpdateTime: 1619219027,
+    link: "http://wbur.org/hereandnow",
+    locked: 0,
+    originalUrl: "https://feeds.npr.org/510051/podcast.xml",
+    ownerName: "WBUR",
+    parseErrors: 0,
+    title: "Here & Now",
+    type: 0,
+    url: "https://feeds.npr.org/510051/podcast.xml"
+  }
+
+```
 
 
