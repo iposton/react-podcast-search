@@ -31,6 +31,11 @@
   font-size: 4rem;
 }
 
+.search {
+  font-size: 25px;
+  width: 75%;
+}
+
 .title,
 .description {
   text-align: center;
@@ -90,5 +95,10 @@
 
   .card {
     flex-basis: 66%;
+  }
+
+  .search {
+    font-size: 12px;
+    width: 80%;
   }
 }

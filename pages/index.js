@@ -3,18 +3,37 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 const fetch = require('node-fetch')
 const crypto = require('crypto')
-const alanKey = process.env.NEXT_PUBLIC_KEY;
+const alanKey = process.env.NEXT_PUBLIC_KEY
+const pcKey = process.env.NEXT_PUBLIC_KEY_PCK
+const pcSecret = process.env.NEXT_PUBLIC_KEY_PCS
 
 export default function Home() {
   const [items, setItems] = useState([])
  
   useEffect(() => {
+    const source = document.getElementById('term');
+    var myUrl = 'https://api.podcastindex.org/api/1.0/search/byterm?q=npr'
+
+    const inputHandler = function(e) {
+      myUrl = `https://api.podcastindex.org/api/1.0/search/byterm?q=${e.target.value}`
+      if (e.target.value.length > 2)
+        fetchPodsOnChange(myUrl, pcKey, pcSecret)
+    }
+
+    source.addEventListener('input', inputHandler);
+    source.addEventListener('propertychange', inputHandler);
+
+    fetchPodsOnChange(myUrl, pcKey, pcSecret)
     const alanBtn = require('@alan-ai/alan-sdk-web');
     alanBtn({
       key: alanKey,
       onCommand: ({ url, key, secret }) => {
         console.log(url, 'search url request')
+        fetchPodsOnChange(url, key, secret)
+      }
+    })
 
+    function fetchPodsOnChange(url,key,secret) {
         const APIKEY = key
         const APISECRET = secret
 
@@ -51,10 +70,7 @@ export default function Home() {
             console.log(err)
           },
         )
-        
-
-      }
-    })
+    }
   }, [])
   return (
     <div className={styles.container}>
@@ -71,6 +87,9 @@ export default function Home() {
         <p className={styles.description}>
           Use the microphone to make a search. Example: "Give me podcasts from NPR"
         </p>
+      
+        <input name="search" className={styles.search} type="search" id="term" placeholder="Search"></input>
+       
 
         <div className={styles.grid}>
           {!items.length && 'No search results: try again'}
