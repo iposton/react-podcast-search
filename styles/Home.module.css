@@ -16,6 +16,61 @@
   align-items: center;
 }
 
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity:1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.8); 
+}
+
+.close {
+  font-size: 30px;
+  color: #fff;
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  margin: 10px;
+}
+
+.close:hover {
+  cursor: pointer;
+}
+
+.dialog {
+  position: fixed;
+  top: 30%;
+  left: 30%;
+  background: #eee;
+  height: 300px;
+  width: 700px;
+}
+
+.pcimage {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.dialog ul li,
+.dialog p {
+  width: 360px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dialog ul li:hover {
+  cursor: pointer;
+  color: green;
+}
+
 .footer {
   width: 100%;
   height: 100px;
