@@ -47,8 +47,8 @@
   top: 30%;
   left: 30%;
   background: #eee;
-  height: 300px;
-  width: 700px;
+  height: 260px;
+  width: 400px;
 }
 
 .pcimage {
@@ -56,6 +56,11 @@
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.dialog ul {
+  margin: 0;
+  padding: 0;
 }
 
 .dialog ul li,
@@ -155,5 +160,9 @@
   .search {
     font-size: 12px;
     width: 80%;
+  }
+
+  .dialog {
+    left: 0%;
   }
 }

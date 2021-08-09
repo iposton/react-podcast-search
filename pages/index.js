@@ -3,10 +3,10 @@ import styles from '../styles/Home.module.css'
 import React, { useState, useEffect } from 'react'
 const fetch = require('node-fetch')
 const crypto = require('crypto')
-
 const alanKey = process.env.NEXT_PUBLIC_KEY
 const pcKey = process.env.NEXT_PUBLIC_KEY_PCK
 const pcSecret = process.env.NEXT_PUBLIC_KEY_PCS
+
 let myUrl = null
 const audioRef = React.createRef()
 
@@ -151,7 +151,6 @@ function checkNavMedia(data) {
       
         <input name="search" className={styles.search} type="search" id="term" placeholder="Search"></input>
        
-
         <div className={styles.grid}>
           {!items.length && 'No search results: try again'}
           { items.map((item) => (
@@ -169,7 +168,7 @@ function checkNavMedia(data) {
         <div className={styles.overlay}>
           <span className={styles.close} onClick={close}> X </span>
           <div className={styles.dialog}>
-            <p>Now Playing: {episode.title}</p> <span className={styles.pcimage}> <img src={image} alt="podcast image" width="192" height="192" /></span>
+            <p>Now Playing: <br/> {episode.title}</p> <span className={styles.pcimage}> <img src={image} alt="podcast image" width="98" height="98" /></span>
             <audio controls ref={audioRef}>
               <source src={episode.enclosureUrl} type={episode.enclosureType} />
               Your browser does not support the audio element.
